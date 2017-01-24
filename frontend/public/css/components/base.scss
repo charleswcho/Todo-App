@@ -1,0 +1,46 @@
+// ---------------------------------------------------------------
+// variables
+// ---------------------------------------------------------------
+
+$font-family-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-header: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// ---------------------------------------------------------------
+// page base
+// ---------------------------------------------------------------
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: $font-family-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: $font-family-header;
+}
+
+h1 {
+  color: wheat;
+  padding: 40px;
+  font-size: 72px;
+  text-align: center;
+  font-weight: 100;
+}
