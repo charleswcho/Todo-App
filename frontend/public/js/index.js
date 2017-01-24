@@ -5,10 +5,10 @@
 class ToDoApp {
   constructor(store) {
     this.store = store
+    this.drapDrop = new DragDropModule(store)
 
     this.renderTasks()
     this.setListeners()
-    new DragDropModule(store).setDragDropListeners()
   }
 
   renderTasks = (name) => {
@@ -18,8 +18,11 @@ class ToDoApp {
     // Clear old tasks
     document.querySelector('.tasks').innerHTML = ''
 
-    // Rerender tasks
+    // Render or Rerender tasks
     filtered.forEach((task, idx) => this.renderTask(task, idx))
+
+    // Add drag drop listeners after render or rerender
+    this.drapDrop.setDragDropListeners()
   }
 
   renderTask({ name, completed }, idx) {
