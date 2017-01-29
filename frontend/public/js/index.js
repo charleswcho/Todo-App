@@ -5,7 +5,7 @@
 class ToDoApp {
   constructor(store) {
     this.store = store
-    this.dragDrop = new DragDropModule(store)
+    this.drapDrop = new DragDropModule(store)
 
     this.renderTasks()
     this.setListeners()
@@ -14,15 +14,12 @@ class ToDoApp {
   renderTasks = (name) => {
     // If there is text in the input we filter our tasks
     let filtered = name ? this.store.filterTasks(name) : this.store.tasks
-
     // Clear old tasks
     document.querySelector('.tasks').innerHTML = ''
-
-    // Render or Rerender tasks
+    // Render or rerender tasks
     filtered.forEach((task, idx) => this.renderTask(task, idx))
-
-    // Add drag drop listeners after render or rerender
-    this.dragDrop.setDragDropListeners()
+    // Add drag drop handler
+    this.drapDrop.setDragDropListeners()
   }
 
   renderTask({ name, completed }, idx) {
@@ -31,16 +28,13 @@ class ToDoApp {
           input = `<label><input id=done type=checkbox ${checked}>Completed</label>`
 
     div.innerHTML = `<li class=task idx=${idx} draggable=true>${name}${input}</li>`
-
     // Add Task to DOM
     document.querySelector('.tasks').appendChild(div.firstChild)
   }
 
   // User input handlers
-
   _handleInput = (e) => {
     const input = document.querySelector('.input-task')
-
     // If the user submits a new task we create a new task then clear the input
     if (e.keyCode === 13) {
       this.store.createTask(input.value, this.renderTask)
@@ -56,7 +50,7 @@ class ToDoApp {
           task = this.store.tasks[parseInt(idx)]
 
       task.completed = task.completed ? false : true
-
+      // Save new completed state 
       this.store.set()
     }
   }
@@ -85,13 +79,9 @@ class Store {
     this.set()
   }
 
-  get() {
-    return JSON.parse(sessionStorage.getItem(this.name))
-  }
+  get = () => JSON.parse(sessionStorage.getItem(this.name))
 
-  set() {
-    sessionStorage.setItem(this.name, JSON.stringify(this.tasks))
-  }
+  set() { sessionStorage.setItem(this.name, JSON.stringify(this.tasks)) }
 
   swap(idx1, idx2) {
     let temp = this.tasks[idx1]
@@ -105,11 +95,10 @@ class Store {
       alert('Task needs name')
     } else {
       const task = new Task(name)
-
       // Adding Task to Storage
       this.tasks.push(task)
       this.set()
-
+      // Render new Task
       cb(task)
     }
   }
